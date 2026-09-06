@@ -1,3 +1,30 @@
-# Dynatrace Connector - PREPARATION.md
+# Dynatrace Connector — Preparation
 
-Standard documentation for Dynatrace Connector in Imperal Cloud.
+**Category:** C42. Observability & APM  
+**Status:** App Preparation Complete (Genuinely Vendor-Specific)  
+**Standard:** APP_PREPARATION_STANDARD.md
+
+## 1. Паспорт коннектора
+- **Название:** Dynatrace Connector (`dynatrace-connector`)
+- **Официальный портал вендора:** https://dynatrace.com
+- **Базовый API:** `https://<environment-id>.live.dynatrace.com/api/v2`
+- **Модель аутентификации:** Dynatrace API Token (Authorization: Api-Token <token>)
+- **Назначение:** Интеграция платформы Imperal Cloud с Dynatrace для автоматизации предметной области: автоматическое обнаружение зависимостей микросервисов на базе OneAgent и ИИ-анализ первопричин сбоев (Davis AI).
+
+## 2. Решаемая проблема
+Когда **Enterprise Cloud Architect** сталкивается с задачей **автоматическое обнаружение зависимостей микросервисов на базе OneAgent и ИИ-анализ первопричин сбоев (Davis AI)**, возникает необходимость ручного мониторинга, дублирования статусов и переключения между окнами. Это приводит к потере времени, замедлению реакции на инциденты и ошибкам ручного ввода.
+
+## 3. Роли и права доступа
+- **Enterprise Cloud Architect, Lead SRE, руководитель эксплуатации**
+- Принцип наименьших привилегий (Least Privilege): токен запрашивает доступ только к разрешенным операциям чтения и подтвержденным действиям.
+
+## 4. Ключевые сущности
+проблемы и инциденты (/problems), сервисы и сущности инфраструктуры (/entities), метрики (/metrics)
+
+## 5. Первичный рабочий сценарий
+`запрос открытых проблем Davis AI -> анализ первопричины (Root Cause) -> проверка связанных сущностей кластера`.
+
+## 6. Границы коннектора
+- Изолированное хранение секретов (BYOC).
+- Никаких фиктивных методов сторонних предметных областей.
+- Деструктивные операции требуют явного подтверждения пользователя.
