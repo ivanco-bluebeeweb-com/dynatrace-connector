@@ -10,7 +10,7 @@ from schemas import (
 from handlers_connection import resolve_client
 
 @chat.function("list_metrics", "List metrics in Dynatrace.", action_type="read", chain_callable=True, event="dynatrace-connector.list_metrics", effects=["read:metrics"], data_model=MetricList)
-async def list_metrics(params: ListMetricParams, ctx) -> ActionResult:
+async def list_metrics(ctx, params: ListMetricParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         raw_items = await client.list_metrics(limit=params.limit)
@@ -24,7 +24,7 @@ async def list_metrics(params: ListMetricParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error listing metrics: {e}")
 
 @chat.function("get_metric", "Get details of one Metric in Dynatrace.", action_type="read", chain_callable=True, event="dynatrace-connector.get_metric", effects=["read:metric"], data_model=MetricRecord)
-async def get_metric(params: GetMetricParams, ctx) -> ActionResult:
+async def get_metric(ctx, params: GetMetricParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         r = await client.get_metric(params.metric_id)
@@ -35,7 +35,7 @@ async def get_metric(params: GetMetricParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error retrieving Metric: {e}")
 
 @chat.function("audit_metric_health", "Audit health of Dynatrace metrics and connectivity.", action_type="read", chain_callable=True, event="dynatrace-connector.audit_metric_health", effects=["read:audit"], data_model=AuditHealthReport)
-async def audit_metric_health(params: ConnectionIdParams, ctx) -> ActionResult:
+async def audit_metric_health(ctx, params: ConnectionIdParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         items = await client.list_metrics(limit=50)
