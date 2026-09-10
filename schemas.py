@@ -10,7 +10,7 @@ class NoParams(BaseModel):
 class ConnectParams(BaseModel):
     label: str = Field(default="", description="Friendly connection label, e.g. Primary Dynatrace.")
     api_key: str = Field(description="Observability API Key")
-    base_url: str = Field(default="https://api.dynatrace.com/v2", description="Dynatrace API base URL.")
+    base_url: str = Field(default="https://api.dynatrace.com", description="Dynatrace API base URL.")
 
 class ConnectionIdParams(BaseModel):
     connection_id: str = Field(default="", description="Connection identifier (empty uses active connection).")
